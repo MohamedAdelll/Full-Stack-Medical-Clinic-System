@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600"
+    rel="stylesheet"
+  />  
+  <link rel="stylesheet" href="../static/styles/main.css">
+  <title>Clinic </title>
+</head>
+
+<body>
+    {% include 'includes/_navbar.html' %}
+    
+
+<div class="content">
+  <main class="main">
+    <form class="cta-form grid grid--2-cols">
+        <header class="form-header">
+            <h3 class="heading-form margin-bottom-medium">Search for patients by name </h3>
+        </header>
+        <div>
+            <label for="full-name">Name</label>
+            <input type="text" id="full-name" placeholder="John Smith" required>
+            <ul class="formlist">
+
+            </ul>
+        </div>
+        </main>
+    </div>
+    <div class="hidden--names" style="display:none ;">
+        {{data}}
+    </div>
+    <script src="{{url_for('static',filename='json_data.json')}}"> type='text/javascript' </script>
+    <script>
+    let hdiv=document.querySelector('.hidden--names').textContent
+    hdiv=hdiv.replaceAll('(','')
+    hdiv=hdiv.replaceAll(')','')
+    hdiv=hdiv.replaceAll('[','')
+    hdiv=hdiv.replaceAll(']','')
+    hdiv=hdiv.replaceAll('\'','')
+    hdiv=hdiv.replaceAll('datetime.date','')
+    hdiv=hdiv.slice(0,-1)
+    hdiv=hdiv.split(',')
+    
+    const arrayLength=hdiv.length
+    hdiv=hdiv.map(el=>el.trim())
+    const arrOfObjects=[];
+    const temparr=[]
+    const numOfAttributes=7;
+    const numOfRecords=(arrayLength)/numOfAttributes
+    for (let i=0;i<numOfRecords;i++){
+        const temparr=[]
+        for (let j=i*numOfAttributes;j<(i*numOfAttributes)+numOfAttributes;j++){
+            temparr.push(hdiv[j])
+        }
+        const patient = new constructorFunction(+temparr[0],temparr[1],temparr[2],+temparr[3],+temparr[4],+temparr[5],temparr[6])
+        arrOfObjects.push(patient)
+    }
+    console.log(arrOfObjects)
+     function constructorFunction(id,name,gender,year,day,month,address){
+         this.id=id;
+         this.name=name
+         this.gender=gender
+         this.year=year
+         this.day=day
+         this.month=month
+         this.address=address
+
+        }
+        const arrOfNames = []
+        for(let i = 0; i<numOfRecords;i++){
+            arrOfNames.push(arrOfObjects[i].name.toLowerCase())
+        }
+        console.log(arrOfNames)
+        const inputName=document.querySelector('#full-name')
+        inputName.addEventListener('keyup',search)
+        function search(){
+
+            const userInput=inputName.value
+            const newArr=arrOfNames.filter((name,i)=>
+                 (name.startsWith(userInput))
+                 
+            )
+            const formlList=document.querySelector('.formlist')
+            formlList.innerHTML=''
+            newArr.forEach(name=>{
+                const li=document.createElement('li')
+                formlList.append(`${name}`,li)
+            })
+
+        }
+
+    </script>
+</body>
+</html>
