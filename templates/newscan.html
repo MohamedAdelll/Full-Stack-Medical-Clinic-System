@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600"
+    rel="stylesheet"
+  />  
+  <link rel="stylesheet" href="../static/styles/main.css">
+    <title>Clinic </title>
+</head>
+
+<body>
+
+{% include 'includes/_navbar.html' %}
+{% block body %}
+<div class="content">
+ <main class="main">
+    <h2 style='text-align:center'>{% with messages = get_flashed_messages(with_categories=false) %}
+        {% if messages %}
+            {% for m in messages %}
+             {{ m }}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </h2>
+    <form id="form" class="form" method='POST' action='/newscan'>
+      <h2>Add a New Scan/Appointment</h2>
+      <div class="form-control">
+        <label>Patient ID</label>
+        <input type='number' name = 'pid' placeholder='Ex: 1' style="width:100%" required/>
+        <label>Scan Date</label>
+        <input type='date' name = 'sdate' style="width:100%" required/>
+      </div>  
+      <div class="form-control">
+        <label>Scan Image</label>
+        <input type='file' name = 'simage' style="width:200%" accept="image/*"/>
+      </div> 
+      <div class="form-control">
+        <label>Comments</label>
+        <input type = 'text' name = 'stext' style="width: 200%;"/>
+      </div>
+      <div class="form-control">
+        <button class="btn" type="submit">Submit</button>
+      </div>
+    </form>
+ </main>
+ {% endblock %}
+
+</div>
+
+</div>
+<script src="../index.js"></script>
+</body>
+</html>

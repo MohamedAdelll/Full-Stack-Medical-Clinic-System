@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../static/styles/main.css" />
+    <title>Clinic Prototype</title>
+  </head>
+  <body>
+    <div style=" display: flex; justify-content: center;  padding-top: 80px; ">
+    <div class="container" style="border-color: grey; border-width: 1px; border-style: solid; border-radius: 20px;  ">
+      <h2 style="text-align: center">
+        {% with messages = get_flashed_messages(with_categories=false) %} {% if
+        messages %} {% for m in messages %} {{ m }} {% endfor %} {% endif %} {%
+        endwith %}
+      </h2>
+      <form autocomplete="off" id="form" class="form" action="/login" method="POST">
+        <h2>Sign In</h2>
+        <div class="form-control">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter username"
+             required
+          />
+        </div>
+        <div class="form-control">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter password"
+             required
+          />
+        </div>
+        <div class="form-control">
+          <button
+          style="width: 95%; "
+            class="btn"
+            type="submit"
+          >
+            Sign in
+          </button>
+        </div>
+        </form>
+    </div>
+  </div>
+  </body>
+</html>
