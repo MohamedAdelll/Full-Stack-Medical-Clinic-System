@@ -386,8 +386,15 @@ select {
 .button-div {
   display: flex;
   justify-content: center;
+  gap: 3rem;
 }
 
+.margin-r-xxxl {
+  margin-right: 100rem;
+}
+.hidden {
+  display: none;
+}
 .img-mod {
   width: 100%;
   height: 100%;
@@ -406,4 +413,69 @@ select {
   cursor: pointer;
   font-size: 1.2rem;
   margin: 0 !important;
+}
+.input-name-search {
+  position: relative;
+}
+
+.relative {
+  position: relative;
+}
+
+.suggested-names {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  font-size: 1.6rem;
+  background-color: #f0f6f5;
+  border-radius: 3px;
+  font-weight: 500;
+  overflow-y: scroll;
+  max-height: 20rem;
+}
+
+.suggested-names li {
+  width: 100%;
+  padding: 1rem 0.8rem;
+  list-style: none;
+  cursor: pointer;
+}
+
+.suggested-names li:hover {
+  background-color: #ffffff;
+}
+
+.suggested-names li:first-child {
+  margin-top: 1px;
+}
+
+.btn {
+  font-size: 1.8rem !important;
+  padding: 0.4rem 1.6rem;
+  letter-spacing: 1.2px;
+  border-radius: 3px;
+  cursor: pointer;
+  border: 2px solid #69a197;
+  background-color: #69a197;
+  color: #fff !important;
+  /* left: 50%;  */
+  margin-top: 3.2rem;
+  /* transform: translateX(50%); */
+  /* position: absolute; */
+}
+.btn:hover {
+  background-color: #fff;
+  color: #69a197 !important;
+}
+
+.label-search {
+  font-size: 1.8rem;
+  color: #3a3b3b;
+  padding: 0.5rem;
+  border: 2px solid #69a197;
 }
