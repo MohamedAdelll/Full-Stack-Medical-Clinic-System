@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/styles/main.css" />
+    <script
+      src="https://kit.fontawesome.com/22f2559e15.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.76/dist/themes/light.css"
+    />
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.76/dist/shoelace.js"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navigation">
+        <ul>
+          <li class="nav-item">
+            <i class="fa-solid fa-user-plus"></i><a href="">Add Patient</a>
+          </li>
+          <li class="nav-item active">
+            <i class="fa-solid fa-briefcase-medical"></i
+            ><a href="/addexam">Add Examination</a>
+          </li>
+          <li class="nav-item">
+            <i class="fa-solid fa-file-waveform"></i><a href="">Add Scan</a>
+          </li>
+          <li class="nav-item">
+            <i class="fa-solid fa-magnifying-glass"></i><a href="">Search</a>
+          </li>
+        </ul>
+      </nav>
+      <main class="main-content">
+        <form id="form" class="form" method="POST" action="/addexam">
+          <div class="content-header">
+            <h2>Add Examination for</h2>
+            <input id="input-name" name="input-name" type="text" />
+            <h2>With ID</h2>
+            <input id="input-id" name="input-id" type="text" />
+          </div>
+          <i class="fa-solid fa-xmark iconx-1"></i>
+          <i class="fa-solid fa-xmark iconx-2"></i>
+          <h3 class="examination-heading">Examination details</h3>
+          <div class="content-main">
+            <div class="form-grid">
+              <label for="CO">C/O</label>
+              <select id="CO" name="CO">
+                <option value="0">Select an option</option>
+                <option value="1">Chest pain</option>
+                <option value="2">Dyspnea</option>
+                <option value="3">Palpitation</option>
+                <option value="4">LL Oedema</option>
+              </select>
+              <label for="pulse">Pulse</label>
+              <div class="frame-row">
+                <input type="number" name="pulse"/>
+                <span>/min</span>
+                <sl-radio-group label="Select an option" name="rirr">
+                  <sl-radio-button size="large" name="option" value="1" checked
+                    >R</sl-radio-button
+                  >
+                  <sl-radio-button size="large" name="option" value="2"
+                    >IRR</sl-radio-button
+                  >
+                </sl-radio-group>
+              </div>
+              <label for="BP">BP</label>
+              <div class="frame-row">
+                <label for="">S</label>
+                <input type="number" name="bps"/>
+                <label for="">D</label>
+                <input type="number" name="bpd"/>
+              </div>
+              <label for="RR">RR</label>
+              <div class="frame-row">
+                <input type="number" name="rr"/>
+                <span>/min</span>
+              </div>
+              <label for="chest">Chest</label>
+              <select id="chest" name="chest">
+                <option value="0">Select an option</option>
+                <option value="1">HVB</option>
+                <option value="2">Rhonchi</option>
+                <option value="3">Crepitus</option>
+              </select>
+            </div>
+            <div class="form-grid">
+              <label class="label-ht" for="HT">Ht</label>
+              <div class="flex-column">
+                <div class="frame-row">
+                  <sl-radio-group label="Select an option" name="ht1">
+                    <sl-radio-button
+                      size="large"
+                      name="option"
+                      value="1"
+                      checked
+                      >S1</sl-radio-button
+                    >
+                    <sl-radio-button size="large" name="option" value="2"
+                      >S2</sl-radio-button
+                    >
+                    <sl-radio-button size="large" name="option" value="3"
+                      >S3</sl-radio-button
+                    >
+                    <sl-radio-button size="large" name="option" value="4"
+                      >S4</sl-radio-button
+                    >
+                  </sl-radio-group>
+                  <sl-radio-group label="Select an option" name="ht2">
+                    <sl-radio-button size="large" name="option" value="1"
+                      >Sys. m</sl-radio-button
+                    >
+                    <sl-radio-button size="large" name="option" value="2"
+                      >Dia. m</sl-radio-button
+                    >
+                  </sl-radio-group>
+                </div>
+                <div class="frame-row">
+                  <label for="others">Others</label>
+                  <input type="text" id="others" name="ht3"/>
+                </div>
+              </div>
+              <label for="ABD">abd</label>
+              <input type="text" class="abd" id="ABD" name="abd"/>
+              <label for="LL">LL</label>
+              <div class="frame-row">
+                <label for="pulse">Pulse</label>
+                <sl-radio-group label="Select an option" name="ll">
+                  <sl-radio-button size="large" name="option" value="1" checked
+                    >YES</sl-radio-button
+                  >
+                  <sl-radio-button size="large" name="option" value="2"
+                    >NO</sl-radio-button
+                  >
+                </sl-radio-group>
+              </div>
+              <label for="oedema">Oedema</label>
+              <select id="oedema" name="oedema">
+                <option value="0">Select an option</option>
+                <option value="1">Mild</option>
+                <option value="2">Moderate</option>
+                <option value="3">Severe</option>
+              </select>
+            </div>
+          </div>
+          <button>Submit</button>
+        </form>
+      </main>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

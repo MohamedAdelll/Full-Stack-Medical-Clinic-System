@@ -1,8 +1,8 @@
-from wsgiref.util import request_uri
 from flask import Flask, render_template, request, redirect, flash, url_for
 import mysql.connector
 from functools import wraps
 import json
+from datetime import date
 #variables
 global isLoggedIn
 isLoggedIn = False
@@ -10,7 +10,7 @@ isLoggedIn = False
 mydb = mysql.connector.connect(
 	host = 'localhost',
 	user = 'root',
-	passwd = '@Hm$d_2001',
+	passwd = 'root',
 	database = 'ClinicProto'
 )
 mycursor = mydb.cursor(buffered =True)
@@ -29,6 +29,24 @@ def is_logged_in(f):
             flash('Unauthorized, Please login')
             return redirect(url_for('login'))
     return wrap	
+
+
+def genJSON():
+    mycursor.execute('SELECT * FROM Patients')
+    patients = mycursor.fetchall()
+    with open('static/json_patients.json', 'w') as outfile:
+        json_string = json.dumps(patients)
+        json.dump(json_string, outfile)
+    mycursor.execute('SELECT * FROM Scans')
+    scans = mycursor.fetchall()
+    with open('static/json_scans.json', 'w') as outfile:
+        json_string = json.dumps(scans)
+        json.dump(json_string, outfile)
+    mycursor.execute('SELECT * FROM Examinations')
+    exams = mycursor.fetchall()
+    with open('static/json_exams.json', 'w') as outfile:
+        json_string = json.dumps(exams)
+        json.dump(json_string, outfile)
 
 @app.route('/login', methods = ['POST', 'GET'])
 def login():
@@ -57,21 +75,7 @@ def logout():
 @app.route('/', methods = ['POST', 'GET'])
 @is_logged_in
 def home():
-        return redirect(url_for('admin'))
-
-@app.route('/admin', methods = ['POST', 'GET'])
-@is_logged_in
-def admin():
-    if request.method == 'POST':
-        fName = request.form['fname']
-        lName = request.form['Lname']
-        user = request.form['username']
-        passwd = request.form['password']
-        mycursor.execute('INSERT INTO Users (Username, Password, FirstName, LastName) VALUES (%s, %s, %s, %s)', (fName, lName, user, passwd,))
-        mydb.commit()
-        flash('User succefully registered')
-    
-    return render_template('admin.html')
+        return redirect(url_for('newPatient'))
 
 @app.route('/newpatient', methods = ['POST', 'GET'])
 @is_logged_in
@@ -90,9 +94,37 @@ def newPatient():
         flash('Patient added successfully')
     return render_template('newpatient.html')
 
+@app.route('/addexam', methods = [POST, GET])
+@is_logged_in
+def addExam():
+    genJSON()
+    if request.method == 'POST':
+        name = request.form['input-user']
+        id = request.form['input-id']
+        co = request.form['CO']
+        pulse = request.form['pulse']
+        rirr = request.form['rirr']
+        bps = request.form['bps']
+        bpd = request.form['bpd']
+        rr = request.form['rr']
+        chest = request.form['chest']
+        ht1 = request.form['ht1']
+        ht2 = request.form['ht2']
+        ht3 = request.form['ht3']
+        abd = request.form['abd']
+        ll = request.form['ll']
+        oedema = request.form['oedema']
+        sql = 'INSERT INTO Examination (PID, Date, Pulse, PulseType, CO, BPS, BPD, RR, Chest, HT1, HT2, HT3, ABD, LL, Oedema) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+        val = (id, date.today(), pulse, rirr, co, bps, bpd, rr, chest, ht1, ht2, ht3, abd, ll, oedema)
+        mycursor.execute(sql, val)
+        mydb.commit()
+
+    return render_template('exam.html')
+
 @app.route('/newscan', methods = ['POST', 'GET'])
 @is_logged_in
 def newScan():
+    genJSON()
     if request.method == 'POST':
         pid = request.form['pid']
         sdate = request.form['sdate']
@@ -107,11 +139,8 @@ def newScan():
 
 @app.route('/search', methods = ['POST', 'GET'])
 def search():
-    mycursor.execute('SELECT * FROM Patients')
-    data = mycursor.fetchall()
-    # with open('static/json_data.json', 'w') as outfile:
-    #     json_string = json.dumps(data)
-    #     json.dump(json_string, outfile)
+    genJSON()
     return render_template('search.html', data = data)
+
 if __name__=='__main__':
 	app.run(debug=True)

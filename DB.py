@@ -3,7 +3,7 @@ import mysql.connector
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="@Hm$d_2001",
+    passwd="root",
 )
 mycursor = mydb.cursor()
 mycursor.execute('DROP DATABASE IF EXISTS ClinicProto')
@@ -14,7 +14,7 @@ mydb.commit()
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="@Hm$d_2001",
+    passwd="root",
     database='ClinicProto'
 )
 mycursor = mydb.cursor()
@@ -60,3 +60,28 @@ mycursor.execute('''
     )
 ''')
 mydb.commit
+
+mycursor.execute(""" 
+    CREATE TABLE Examinations( 
+        ID INT NOT NULL UNIQUE AUTO_INCREMENT, 
+        PID INT, 
+        Date DATE, 
+        Pulse INT,
+        PulseType VARCHAR(10),
+        CO INT,
+        BPS INT, 
+        BPD INT, 
+        RR INT, 
+        Chest VARCHAR(45),
+        HT1 INT,
+        HT2 VARCHAR(15),
+        HT3 VARCHAR(255),
+        ABD VARCHAR(255), 
+        LL BOOLEAN,
+        Oedema INT, 
+        PRIMARY KEY(ID),
+        CONSTRAINT PID_EXAM
+            FOREIGN KEY(PID) 
+            REFERENCES Patients (ID) 
+    )"""
+)
