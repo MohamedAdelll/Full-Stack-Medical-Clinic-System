@@ -24,16 +24,20 @@
       <nav class="navigation">
         <ul>
           <li class="nav-item">
-            <i class="fa-solid fa-user-plus"></i><a href="/newpatient">Add Patient</a>
+            <i class="fa-solid fa-user-plus"></i
+            ><a href="/newpatient">Add Patient</a>
           </li>
           <li class="nav-item active">
-            <i class="fa-solid fa-briefcase-medical"></i><a href="">Add Examination</a>
+            <i class="fa-solid fa-briefcase-medical"></i
+            ><a href="#">Add Examination</a>
           </li>
           <li class="nav-item">
-            <i class="fa-solid fa-file-waveform"></i><a href="/addscan">Add Scan</a>
+            <i class="fa-solid fa-file-waveform"></i
+            ><a href="/addscan">Add Scan</a>
           </li>
           <li class="nav-item">
-            <i class="fa-solid fa-magnifying-glass"></i><a href="/search">Search</a>
+            <i class="fa-solid fa-magnifying-glass"></i
+            ><a href="/search">Search</a>
           </li>
         </ul>
       </nav>
@@ -41,13 +45,19 @@
         <form id="form" class="form" method="POST" action="/exam">
           <div class="content-header">
             <h2>Add Examination for</h2>
-            <input id="input-name" name="input-name" type="text" />
+            <input required id="input-name" name="input-name" type="text" />
             <h2>With ID</h2>
-            <input id="input-id" name="input-id" type="text" />
+            <input
+              required
+              id="input-id"
+              name="input-id"
+              type="number"
+              step="1"
+            />
           </div>
           <i class="fa-solid fa-xmark iconx-1"></i>
           <i class="fa-solid fa-xmark iconx-2"></i>
-          <h3 class="examination-heading">Examination details</h3>
+          <h3 class="tertiary-heading">Examination details</h3>
           <div class="content-main">
             <div class="form-grid">
               <label for="CO">C/O</label>
@@ -60,7 +70,7 @@
               </select>
               <label for="pulse">Pulse</label>
               <div class="frame-row">
-                <input type="number" name="pulse"/>
+                <input type="number" name="pulse" />
                 <span>/min</span>
                 <sl-radio-group label="Select an option" name="rirr">
                   <sl-radio-button size="large" name="option" value="1" checked
@@ -74,13 +84,13 @@
               <label for="BP">BP</label>
               <div class="frame-row">
                 <label for="">S</label>
-                <input type="number" name="bps"/>
+                <input type="number" name="bps" />
                 <label for="">D</label>
-                <input type="number" name="bpd"/>
+                <input type="number" name="bpd" />
               </div>
               <label for="RR">RR</label>
               <div class="frame-row">
-                <input type="number" name="rr"/>
+                <input type="number" name="rr" />
                 <span>/min</span>
               </div>
               <label for="chest">Chest</label>
@@ -124,11 +134,11 @@
                 </div>
                 <div class="frame-row">
                   <label for="others">Others</label>
-                  <input type="text" id="others" name="ht3"/>
+                  <input type="text" id="others" name="ht3" />
                 </div>
               </div>
               <label for="ABD">abd</label>
-              <input type="text" class="abd" id="ABD" name="abd"/>
+              <input type="text" class="abd" id="ABD" name="abd" />
               <label for="LL">LL</label>
               <div class="frame-row">
                 <label for="pulse">Pulse</label>
@@ -150,9 +160,12 @@
               </select>
             </div>
           </div>
-          <button>Submit</button>
+          <div class="button-div">
+            <button>Submit</button>
+          </div>
         </form>
       </main>
     </div>
+    <!-- <script src="../static/scripts/index.js"></script> -->
   </body>
 </html>
