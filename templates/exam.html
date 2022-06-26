@@ -24,22 +24,21 @@
       <nav class="navigation">
         <ul>
           <li class="nav-item">
-            <i class="fa-solid fa-user-plus"></i><a href="">Add Patient</a>
+            <i class="fa-solid fa-user-plus"></i><a href="/newpatient">Add Patient</a>
           </li>
           <li class="nav-item active">
-            <i class="fa-solid fa-briefcase-medical"></i
-            ><a href="/addexam">Add Examination</a>
+            <i class="fa-solid fa-briefcase-medical"></i><a href="">Add Examination</a>
           </li>
           <li class="nav-item">
-            <i class="fa-solid fa-file-waveform"></i><a href="">Add Scan</a>
+            <i class="fa-solid fa-file-waveform"></i><a href="/addscan">Add Scan</a>
           </li>
           <li class="nav-item">
-            <i class="fa-solid fa-magnifying-glass"></i><a href="">Search</a>
+            <i class="fa-solid fa-magnifying-glass"></i><a href="/search">Search</a>
           </li>
         </ul>
       </nav>
       <main class="main-content">
-        <form id="form" class="form" method="POST" action="/addexam">
+        <form id="form" class="form" method="POST" action="/exam">
           <div class="content-header">
             <h2>Add Examination for</h2>
             <input id="input-name" name="input-name" type="text" />
@@ -155,6 +154,6 @@
         </form>
       </main>
     </div>
-    <script src="index.js"></script>
+    <script src="../static/scripts/index.js"></script>
   </body>
 </html>
