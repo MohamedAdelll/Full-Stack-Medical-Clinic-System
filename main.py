@@ -9,6 +9,7 @@ import pathlib
 #variables
 global isLoggedIn
 isLoggedIn = False
+print(1)
 
 mydb = mysql.connector.connect(
 	host = 'localhost',
