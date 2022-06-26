@@ -24,16 +24,14 @@
       <nav class="navigation">
         <ul>
           <li class="nav-item">
-            <a href="/newpatient">
               <i class="fa-solid fa-user-plus"></i><a href="/newpatient">Add Patient</a>
-            </a>
           </li>
           <li class="nav-item">
             <i class="fa-solid fa-briefcase-medical"></i
             ><a href="/exam">Add Examination</a>
           </li>
           <li class="nav-item active">
-            <i class="fa-solid fa-file-waveform"></i><a href="/exam">Add Scan</a>
+            <i class="fa-solid fa-file-waveform"></i><a href="/scan">Add Scan</a>
           </li>
           <li class="nav-item">
             <i class="fa-solid fa-magnifying-glass"></i><a href="/search">Search</a>
@@ -46,7 +44,7 @@
             <h2>Add Scan for</h2>
             <input required id="input-name" type="text" />
             <h2>With ID</h2>
-            <input required id="input-id" name="input-id" type="text" />
+            <input required id="input-id" name="input-id" type="number" step="1" />
           </div>
           <h3 class="tertiary-heading">Scan details</h3>
           <div class="scan-content">
