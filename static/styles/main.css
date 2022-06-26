@@ -75,7 +75,7 @@ body {
   list-style: none;
   font-size: 1.6rem;
   font-weight: 500;
-  padding: 1.6rem 2.4rem;
+  /* padding: 1.6rem 2.4rem; */
   cursor: pointer;
   display: flex;
   justify-content: start;
@@ -98,6 +98,13 @@ body {
 .navigation ul li a {
   text-decoration: none;
   color: #868e96;
+  padding: 1.6rem 2.4rem;
+  display: inline-block;
+  width: 100%;
+}
+
+.navigation ul li i {
+  margin-left: 20px;
 }
 
 .fa-solid {
