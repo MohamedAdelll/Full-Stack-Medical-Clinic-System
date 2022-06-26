@@ -1,99 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/styles/main.css" />
+    <script
+      src="https://kit.fontawesome.com/22f2559e15.js"
+      crossorigin="anonymous"
+    ></script>
     <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600"
-    rel="stylesheet"
-  />  
-  <link rel="stylesheet" href="../static/styles/main.css">
-  <title>Clinic </title>
-</head>
-
-<body>
-    {% include 'includes/_navbar.html' %}
-    
-
-<div class="content">
-  <main class="main">
-    <form class="cta-form grid grid--2-cols">
-        <header class="form-header">
-            <h3 class="heading-form margin-bottom-medium">Search for patients by name </h3>
-        </header>
-        <div>
-            <label for="full-name">Name</label>
-            <input type="text" id="full-name" placeholder="John Smith" required>
-            <ul class="formlist">
-
-            </ul>
-        </div>
-        </main>
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.76/dist/themes/light.css"
+    />
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.76/dist/shoelace.js"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navigation">
+        <ul>
+          <li class="nav-item">
+            <i class="fa-solid fa-user-plus"></i
+            ><a href="/newpatient">Add Patient</a>
+          </li>
+          <li class="nav-item">
+            <i class="fa-solid fa-briefcase-medical"></i
+            ><a href="/exam">Add Examination</a>
+          </li>
+          <li class="nav-item">
+            <i class="fa-solid fa-file-waveform"></i
+            ><a href="/addscan">Add Scan</a>
+          </li>
+          <li class="nav-item active">
+            <i class="fa-solid fa-magnifying-glass"></i><a href="#">Search</a>
+          </li>
+        </ul>
+      </nav>
+      <main class="main-content">
+        <form id="form" class="form" method="POST" action="/exam">
+          <div class="content-header">
+            <h2>Search for patient by name</h2>
+            <div class="relative">
+              <input required id="input-name" name="input-name" type="text" />
+              <ul class="suggested-names"></ul>
+            </div>
+            <h2>Or by ID</h2>
+            <input
+              required
+              id="input-id"
+              name="input-id"
+              step="1"
+              type="number"
+            />
+          </div>
+          <div class="form-main"></div>
+          <div class="button-div show">
+            <span class="btn btn-span">Show</span>
+          </div>
+          <div class="name-row button-div hidden back">
+            <span class="btn btn-span">Back</span>
+            <button type="submit" class="btn btn-button">Continue</button>
+          </div>
+        </form>
+      </main>
     </div>
-    <div class="hidden--names" style="display:none ;">
-        {{data}}
-    </div>
-    <script src="{{url_for('static',filename='json_data.json')}}"> type='text/javascript' </script>
-    <script>
-    let hdiv=document.querySelector('.hidden--names').textContent
-    hdiv=hdiv.replaceAll('(','')
-    hdiv=hdiv.replaceAll(')','')
-    hdiv=hdiv.replaceAll('[','')
-    hdiv=hdiv.replaceAll(']','')
-    hdiv=hdiv.replaceAll('\'','')
-    hdiv=hdiv.replaceAll('datetime.date','')
-    hdiv=hdiv.slice(0,-1)
-    hdiv=hdiv.split(',')
-    
-    const arrayLength=hdiv.length
-    hdiv=hdiv.map(el=>el.trim())
-    const arrOfObjects=[];
-    const temparr=[]
-    const numOfAttributes=7;
-    const numOfRecords=(arrayLength)/numOfAttributes
-    for (let i=0;i<numOfRecords;i++){
-        const temparr=[]
-        for (let j=i*numOfAttributes;j<(i*numOfAttributes)+numOfAttributes;j++){
-            temparr.push(hdiv[j])
-        }
-        const patient = new constructorFunction(+temparr[0],temparr[1],temparr[2],+temparr[3],+temparr[4],+temparr[5],temparr[6])
-        arrOfObjects.push(patient)
-    }
-    console.log(arrOfObjects)
-     function constructorFunction(id,name,gender,year,day,month,address){
-         this.id=id;
-         this.name=name
-         this.gender=gender
-         this.year=year
-         this.day=day
-         this.month=month
-         this.address=address
 
-        }
-        const arrOfNames = []
-        for(let i = 0; i<numOfRecords;i++){
-            arrOfNames.push(arrOfObjects[i].name.toLowerCase())
-        }
-        console.log(arrOfNames)
-        const inputName=document.querySelector('#full-name')
-        inputName.addEventListener('keyup',search)
-        function search(){
-
-            const userInput=inputName.value
-            const newArr=arrOfNames.filter((name,i)=>
-                 (name.startsWith(userInput))
-                 
-            )
-            const formlList=document.querySelector('.formlist')
-            formlList.innerHTML=''
-            newArr.forEach(name=>{
-                const li=document.createElement('li')
-                formlList.append(`${name}`,li)
-            })
-
-        }
-
-    </script>
-</body>
+    <script type="module" src="../static/scripts/search.js"></script>
+  </body>
 </html>
