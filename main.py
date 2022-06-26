@@ -3,6 +3,7 @@ import mysql.connector
 from functools import wraps
 import json
 from datetime import date
+import base64
 #variables
 global isLoggedIn
 isLoggedIn = False
@@ -15,7 +16,7 @@ mydb = mysql.connector.connect(
 )
 mycursor = mydb.cursor(buffered =True)
 
-app=Flask(__name__ ,static_url_path="/static", static_folder="static")
+app=Flask(__name__ , static_url_path="/static", static_folder="static")
 app.config['SECRET_KEY'] = '54aaacc75d53041c924e22910015ddda'
 
 
@@ -29,7 +30,6 @@ def is_logged_in(f):
             flash('Unauthorized, Please login')
             return redirect(url_for('login'))
     return wrap	
-
 
 def genJSON():
     mycursor.execute('SELECT * FROM Patients')
@@ -47,6 +47,11 @@ def genJSON():
     with open('static/json_exams.json', 'w') as outfile:
         json_string = json.dumps(exams)
         json.dump(json_string, outfile)
+
+def enterImage(path):
+    with open(path, 'rb') as File:
+        data = File.read()
+    return data
 
 @app.route('/login', methods = ['POST', 'GET'])
 def login():
@@ -85,21 +90,20 @@ def newPatient():
         minit = request.form['minit']
         lname = request.form['lname']
         name = fname + ' ' + minit + ' ' + lname 
-        bdate = request.form['bdate']
+        age = request.form['age']
         gender = request.form['gender']
         address = request.form['address']
-        data = (name, bdate, gender, address,)
-        mycursor.execute('INSERT INTO Patients (Name, BDate, Gender, Address) VALUES (%s, %s, %s, %s)', data)
+        data = (name, age, gender, address,)
+        mycursor.execute('INSERT INTO Patients (Name, Age, Gender, Address) VALUES (%s, %s, %s, %s)', data)
         mydb.commit()
         flash('Patient added successfully')
-    return render_template('newpatient.html')
+    return render_template('patient.html')
 
-@app.route('/addexam', methods = [POST, GET])
+@app.route('/exam', methods = ['POST', 'GET'])
 @is_logged_in
 def addExam():
     genJSON()
     if request.method == 'POST':
-        name = request.form['input-user']
         id = request.form['input-id']
         co = request.form['CO']
         pulse = request.form['pulse']
@@ -115,32 +119,30 @@ def addExam():
         ll = request.form['ll']
         oedema = request.form['oedema']
         sql = 'INSERT INTO Examination (PID, Date, Pulse, PulseType, CO, BPS, BPD, RR, Chest, HT1, HT2, HT3, ABD, LL, Oedema) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
-        val = (id, date.today(), pulse, rirr, co, bps, bpd, rr, chest, ht1, ht2, ht3, abd, ll, oedema)
+        val = (id, str(date.today()), pulse, rirr, co, bps, bpd, rr, chest, ht1, ht2, ht3, abd, ll, oedema)
         mycursor.execute(sql, val)
         mydb.commit()
 
     return render_template('exam.html')
 
-@app.route('/newscan', methods = ['POST', 'GET'])
+@app.route('/addscan', methods = ['POST', 'GET'])
 @is_logged_in
 def newScan():
     genJSON()
     if request.method == 'POST':
-        pid = request.form['pid']
-        sdate = request.form['sdate']
-        simage = request.form['simage']
-        print(simage)
-        stext =  request.form['stext']
-        data = (str(pid), sdate, simage, stext)
-        mycursor.execute('INSERT INTO Scans (PID, SDate, SImage, SText) VALUES (%s, %s, %s, %s)', data)
+        pid = request.form['input-id']
+        images = request.files.getlist('images')
+        test = base64.b64encode(images[0].read())
+        data = (str(pid), str(date.today()), test)
+        mycursor.execute('INSERT INTO Scans (PID, SDate, Image1) VALUES (%s, %s, %s)', data)
         mydb.commit()
         flash('Scan added successfully')
-    return render_template('newscan.html')
+    return render_template('scan.html')
 
 @app.route('/search', methods = ['POST', 'GET'])
 def search():
     genJSON()
-    return render_template('search.html', data = data)
+    return render_template('search.html')
 
 if __name__=='__main__':
 	app.run(debug=True)

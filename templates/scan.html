@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/styles/main.css" type="text/css"/>
+    <script
+      src="https://kit.fontawesome.com/22f2559e15.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.76/dist/themes/light.css"
+    />
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.76/dist/shoelace.js"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navigation">
+        <ul>
+          <li class="nav-item">
+            <a href="/newpatient">
+              <i class="fa-solid fa-user-plus"></i><a href="/newpatient">Add Patient</a>
+            </a>
+          </li>
+          <li class="nav-item">
+            <i class="fa-solid fa-briefcase-medical"></i
+            ><a href="/exam">Add Examination</a>
+          </li>
+          <li class="nav-item active">
+            <i class="fa-solid fa-file-waveform"></i><a href="/exam">Add Scan</a>
+          </li>
+          <li class="nav-item">
+            <i class="fa-solid fa-magnifying-glass"></i><a href="/search">Search</a>
+          </li>
+        </ul>
+      </nav>
+      <main class="main-content">
+        <form id="form" class="form" method="POST" action="/addscan" enctype=multipart/form-data>
+          <div class="content-header">
+            <h2>Add Scan for</h2>
+            <input required id="input-name" type="text" />
+            <h2>With ID</h2>
+            <input required id="input-id" name="input-id" type="text" />
+          </div>
+          <h3 class="tertiary-heading">Scan details</h3>
+          <div class="scan-content">
+            <div class="flex-column input-image">
+              <div class="dot-container"></div>
+              <div class="justify-center">
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="file"
+                  multiple="multiple"
+                  name = 'images'
+                />
+              </div>
+              <div class="images-div">
+                <i
+                  class="fa-solid fa-circle-arrow-right fa-solidArr fa-solidArrR"
+                ></i>
+                <i
+                  class="fa-solid fa-circle-arrow-left fa-solidArr fa-solidArrL"
+                ></i>
+              </div>
+            </div>
+            <div class="frame-row">
+              <label for="comments">Comments</label>
+              <input type="text" id="comments" />
+            </div>
+          </div>
+          <div class="button-div">
+            <button>Submit</button>
+          </div>
+        </form>
+      </main>
+    </div>
+    <script src="../static/scripts/scan.js"></script>
+  </body>
+</html>

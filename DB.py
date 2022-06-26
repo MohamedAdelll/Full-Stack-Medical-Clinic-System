@@ -39,7 +39,7 @@ mycursor.execute('''
         ID INT NOT NULL UNIQUE AUTO_INCREMENT,
         Name VARCHAR(255),
         Gender VARCHAR(45),
-        BDate DATE,
+        Age INT,
         Address VARCHAR(255),
         PRIMARY KEY(ID)
     )
@@ -50,9 +50,15 @@ mycursor.execute('''
     CREATE TABLE IF NOT EXISTS Scans (
         ID INT NOT NULL UNIQUE AUTO_INCREMENT,
         PID INT NOT NULL,
-        SDate DATE,
-        SImage VARCHAR(255),
-        SText VARCHAR(255),
+        SDate VARCHAR(255),
+        Image1 LONGBLOB,
+        Image2 BLOB,
+        Image3 BLOB,
+        Image4 BLOB,
+        Image5 BLOB,
+        Image6 BLOB,
+        Image7 BLOB,
+        Image8 BLOB,
         PRIMARY KEY(ID),
         CONSTRAINT PID_SCAN
             FOREIGN KEY(PID)
@@ -65,7 +71,7 @@ mycursor.execute("""
     CREATE TABLE Examinations( 
         ID INT NOT NULL UNIQUE AUTO_INCREMENT, 
         PID INT, 
-        Date DATE, 
+        Date VARCHAR(255), 
         Pulse INT,
         PulseType VARCHAR(10),
         CO INT,

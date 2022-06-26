@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/styles/main.css" type="text/css "/>
+    <script
+      src="https://kit.fontawesome.com/22f2559e15.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.76/dist/themes/light.css"
+    />
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.76/dist/shoelace.js"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navigation">
+        <ul>
+          <li class="nav-item active">
+            <i class="fa-solid fa-user-plus"></i
+            ><a
+              href=""
+              >Add Patient</a
+            >
+          </li>
+          <li class="nav-item">
+            <i class="fa-solid fa-briefcase-medical"></i
+            ><a href="/exam">Add Examination</a>
+          </li>
+          <li class="nav-item">
+            <i class="fa-solid fa-file-waveform"></i><a href="/addscan">Add Scan</a>
+          </li>
+          <li class="nav-item">
+            <i class="fa-solid fa-magnifying-glass"></i><a href="/search">Search</a>
+          </li>
+        </ul>
+      </nav>
+      <main class="main-content">
+        <form id="form" class="form" method="POST" action="/newpatient">
+          <div class="content-header">
+            <h2>Add a new patient</h2>
+          </div>
+          <h3 class="tertiary-heading">Personal information</h3>
+          <div class="name-row">
+            <label for="FN">First Name</label>
+            <input required type="text" id="FN" name="fname" required />
+            <label for="MN">Middle Name</label>
+            <input required type="text" id="MN" name="minit" required />
+            <label for="LN">Last Name</label>
+            <input required type="text" id="LN" name="lname" required />
+          </div>
+          <div class="name-row">
+            <label for="sex">Sex</label>
+            <select id="sex" name="gender">
+              <option value="0">Select an option</option>
+              <option value="1">Male</option>
+              <option value="2">Female</option>
+            </select>
+            <label for="age">Age</label>
+            <input required type="number" id="age" name="age" />
+            <label for="Tel">Tel. number</label>
+            <input required id="Tel" type="number" name="phone" />
+          </div>
+          <div class="name-row justify-center">
+            <label for="Res">Residence</label>
+            <input required type="text" name="address" id="Res" />
+          </div>
+          <div class="button-div">
+            <button>Submit</button>
+          </div>
+        </form>
+      </main>
+    </div>
+  </body>
+</html>
