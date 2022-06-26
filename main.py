@@ -5,6 +5,7 @@ import json
 from datetime import date
 import base64
 import itertools
+import pathlib 
 #variables
 global isLoggedIn
 isLoggedIn = False
@@ -37,7 +38,7 @@ def genJSON():
     desc = mycursor.description
     column_names = [col[0] for col in desc]
     patients = [dict(zip(column_names, row)) for row in mycursor.fetchall()]
-    with open('static/json_patients.json', 'w') as outfile:
+    with open('%s/static/json_patients.json' % pathlib.Path(__file__).parent.resolve(), 'w') as outfile:
         json_string = json.dumps(patients)
         json.dump(json_string, outfile)
 
@@ -143,7 +144,7 @@ def search():
         desc = mycursor.description
         column_names = [col[0] for col in desc]
         scans = [dict(zip(column_names, row)) for row in mycursor.fetchall()]
-        with open('static/json_scans.json', 'w') as outfile:
+        with open('%s/static/json_scans.json' % pathlib.Path(__file__).parent.resolve(), 'w') as outfile:
             json_string = json.dumps(scans)
             json.dump(json_string, outfile)
         
@@ -152,7 +153,7 @@ def search():
         desc = mycursor.description
         column_names = [col[0] for col in desc]
         exams = [dict(zip(column_names, row)) for row in mycursor.fetchall()]
-        with open('static/json_exams.json', 'w') as outfile:
+        with open('%s/static/json_exams.json' % pathlib.Path(__file__).parent.resolve(), 'w') as outfile:
             json_string = json.dumps(exams)
             json.dump(json_string, outfile)
         return redirect(url_for(patientdata))
