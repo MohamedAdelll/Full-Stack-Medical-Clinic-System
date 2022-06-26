@@ -13,6 +13,7 @@ async function getPatients() {
 }
 
 const data = JSON.parse(await getPatients());
+console.log(data)
 const patientsNamesL = data.map((patient) => patient.Name.toLowerCase());
 
 inputName.addEventListener("keyup", () => {
@@ -42,9 +43,10 @@ suggested.addEventListener("click", (e) => {
   inputName.value = e.target.textContent;
   suggested.innerHTML = "";
   currPatient = data.find(
-    (currPatient) => currPatient.Name === inputName.value
-  );
-  const id = currPatient.ID;
+    (patient) =>patient.Name.toLowerCase() === inputName.value.toLowerCase()
+    );
+    console.log(currPatient)
+    const id = currPatient.ID;
   inputID.value = id;
 });
 console.log(spanBtn);
@@ -87,3 +89,12 @@ spanBtn.forEach((btn) => {
     }
   });
 });
+
+inputID.addEventListener('keyup',()=>{
+  if (inputID.value.length!==1) return;
+  currPatient=data.find(patient=>
+    patient.ID===+inputID.value
+  )
+  console.log(currPatient)
+  inputName.value=capitalizeInitials(currPatient.Name)
+})

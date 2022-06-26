@@ -78,6 +78,7 @@ def home():
 @app.route('/newpatient', methods = ['POST', 'GET'])
 @is_logged_in
 def newPatient():
+    genJSON()
     if request.method == 'POST':
         fname = request.form['fname']
         minit = request.form['minit']
@@ -135,7 +136,31 @@ def newScan():
 @app.route('/search', methods = ['POST', 'GET'])
 def search():
     genJSON()
+    if request.method == 'POST':
+        id = request.form['input-id']
+        sql = "SELECT * FROM Scans WHERE PID = '%s'" % id
+        mycursor.execute(sql)
+        desc = mycursor.description
+        column_names = [col[0] for col in desc]
+        scans = [dict(zip(column_names, row)) for row in mycursor.fetchall()]
+        with open('static/json_scans.json', 'w') as outfile:
+            json_string = json.dumps(scans)
+            json.dump(json_string, outfile)
+        
+        sql = "SELECT * FROM Examinations WHERE PID = '%s'" % id
+        mycursor.execute(sql)
+        desc = mycursor.description
+        column_names = [col[0] for col in desc]
+        exams = [dict(zip(column_names, row)) for row in mycursor.fetchall()]
+        with open('static/json_exams.json', 'w') as outfile:
+            json_string = json.dumps(exams)
+            json.dump(json_string, outfile)
+        return redirect(url_for(patientdata))
     return render_template('search.html')
+
+@app.route('/patientdata', methods=['POST', 'GET'])
+def patientdata():
+    return('patientdata.html')
 
 if __name__=='__main__':
 	app.run(debug=True)
