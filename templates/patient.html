@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../static/styles/main.css" type="text/css "/>
+    <link rel="stylesheet" href="../static/styles/main.css" type="text/css " />
     <script
       src="https://kit.fontawesome.com/22f2559e15.js"
       crossorigin="anonymous"
@@ -24,21 +24,19 @@
       <nav class="navigation">
         <ul>
           <li class="nav-item active">
-            <i class="fa-solid fa-user-plus"></i
-            ><a
-              href=""
-              >Add Patient</a
-            >
+            <i class="fa-solid fa-user-plus"></i><a href="">Add Patient</a>
           </li>
           <li class="nav-item">
             <i class="fa-solid fa-briefcase-medical"></i
             ><a href="/exam">Add Examination</a>
           </li>
           <li class="nav-item">
-            <i class="fa-solid fa-file-waveform"></i><a href="/addscan">Add Scan</a>
+            <i class="fa-solid fa-file-waveform"></i
+            ><a href="/addscan">Add Scan</a>
           </li>
           <li class="nav-item">
-            <i class="fa-solid fa-magnifying-glass"></i><a href="/search">Search</a>
+            <i class="fa-solid fa-magnifying-glass"></i
+            ><a href="/search">Search</a>
           </li>
         </ul>
       </nav>
@@ -64,8 +62,8 @@
               <option value="2">Female</option>
             </select>
             <label for="age">Age</label>
-            <input required type="number" id="age" name="age" />
-            <label for="Tel">Tel. number</label>
+            <input min="1" required type="number" id="age" name="age" />
+            <label min="0" step="1" for="Tel">Tel. number</label>
             <input required id="Tel" type="number" name="phone" />
           </div>
           <div class="name-row justify-center">
@@ -78,5 +76,22 @@
         </form>
       </main>
     </div>
+    <!-- <script>
+      form.addEventListener("submit", async () => {
+        const form = document.querySelector(".form");
+        const fName = document.querySelector("#FN");
+        const mName = document.querySelector("#MN");
+        const lName = document.querySelector("#LN");
+        const fullName = `${fName} ${mName} ${lName}`.toLowerCase();
+        const data = JSON.parse(await getPatients());
+        console.log(data);
+
+      });
+      async function getPatients() {
+        const patientDataP = await fetch("/static/json_patients.json");
+        const patientDataJson = await patientDataP.json();
+        return patientDataJson;
+      }
+    </script> -->
   </body>
 </html>
