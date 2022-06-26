@@ -4,6 +4,7 @@ from functools import wraps
 import json
 from datetime import date
 import base64
+import itertools
 #variables
 global isLoggedIn
 isLoggedIn = False
@@ -33,19 +34,11 @@ def is_logged_in(f):
 
 def genJSON():
     mycursor.execute('SELECT * FROM Patients')
-    patients = mycursor.fetchall()
+    desc = mycursor.description
+    column_names = [col[0] for col in desc]
+    patients = [dict(zip(column_names, row)) for row in mycursor.fetchall()]
     with open('static/json_patients.json', 'w') as outfile:
         json_string = json.dumps(patients)
-        json.dump(json_string, outfile)
-    mycursor.execute('SELECT * FROM Scans')
-    scans = mycursor.fetchall()
-    with open('static/json_scans.json', 'w') as outfile:
-        json_string = json.dumps(scans)
-        json.dump(json_string, outfile)
-    mycursor.execute('SELECT * FROM Examinations')
-    exams = mycursor.fetchall()
-    with open('static/json_exams.json', 'w') as outfile:
-        json_string = json.dumps(exams)
         json.dump(json_string, outfile)
 
 def enterImage(path):
