@@ -45,7 +45,10 @@
         <form id="form" class="form" method="POST" action="/exam">
           <div class="content-header">
             <h2>Add Examination for</h2>
-            <input required id="input-name" name="input-name" type="text" />
+            <div class="relative">
+              <input required id="input-name" name="input-name" type="text" />
+              <ul class="suggested-names"></ul>
+            </div>
             <h2>With ID</h2>
             <input
               required
@@ -166,9 +169,6 @@
         </form>
       </main>
     </div>
-<<<<<<< Updated upstream
-    <!-- <script src="../static/scripts/index.js"></script> -->
-=======
->>>>>>> Stashed changes
+    <script type="module" src="../static/scripts/search.js"></script>
   </body>
 </html>
