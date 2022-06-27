@@ -42,7 +42,10 @@
         <form id="form" class="form" method="POST" action="/addscan" enctype=multipart/form-data>
           <div class="content-header">
             <h2>Add Scan for</h2>
-            <input required id="input-name" type="text" />
+            <div class="relative">
+              <input required id="input-name" name="input-name" type="text" />
+              <ul class="suggested-names"></ul>
+            </div>
             <h2>With ID</h2>
             <input required id="input-id" name="input-id" type="number" step="1" />
           </div>
@@ -79,6 +82,6 @@
         </form>
       </main>
     </div>
-    <script src="../static/scripts/scan.js"></script>
+    <script type="module" src="../static/scripts/scan.js"></script>
   </body>
 </html>
