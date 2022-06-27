@@ -129,9 +129,33 @@ def newScan():
     if request.method == 'POST':
         pid = request.form['input-id']
         images = request.files.getlist('images')
-        test = base64.b64encode(images[0].read())
-        data = (str(pid), str(date.today()), str(test))
-        mycursor.execute('INSERT INTO Scans (PID, SDate, Image1) VALUES (%s, %s, %s)', data)
+        for i in range(len(images)):
+            images[i] = base64.b64encode(images[i].read())
+        if (len(images) == 1):
+            data = (str(pid), str(date.today()), str(images[0]))
+            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1) VALUES (%s, %s, %s)', data)
+        elif (len(images) == 2):
+            data = (str(pid), str(date.today()), str(images[0]), images[1])
+            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1, Image2) VALUES (%s, %s, %s, %s)', data)
+        elif (len(images) == 3):
+            data = (str(pid), str(date.today()), str(images[0]), images[1], images[2])
+            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1, Image2, Image3) VALUES (%s, %s, %s, %s, %s)', data)
+        elif (len(images) == 3):
+            data = (str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3])
+            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1, Image2, Image3, Image4) VALUES (%s, %s, %s, %s, %s, %s)', data)
+        elif (len(images) == 3):
+            data = (str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3], images[4])
+            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1, Image2, Image3, Image4, Image5) VALUES (%s, %s, %s, %s, %s, %s, %s)', data)
+        elif (len(images) == 3):
+            data = (str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3], images[4], images[5])
+            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1, Image2, Image3, Image4, Image5, Image6) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', data)
+        elif (len(images) == 3):
+            data = (str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3], images[4], images[5], images[6])
+            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1, Image2, Image3, Image4, Image5, Image6, Image7) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)', data)
+        elif (len(images) == 3):
+            data = (str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3], images[4], images[5], images[6], images[7])
+            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1, Image2, Image3, Image4, Image5, Image6, Image7, Image8) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', data)
+             
         mydb.commit()
         flash('Scan added successfully')
         return redirect('/addscan')
