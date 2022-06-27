@@ -36,9 +36,11 @@ export let currPatient;
 export const handleSuggestions = (e) => {
   inputName.value = e.target.textContent;
   suggested.innerHTML = "";
-  currPatient = data.find(
-    (currPatient) => currPatient.Name === inputName.value
-  );
+  currPatient = data.find((curPatient) =>{
+    console.log(curPatient.Name, inputName.value);
+    return curPatient.Name.toLowerCase() === inputName.value.toLowerCase()
+  });
+  console.log('hi', currPatient)
   const id = currPatient.ID;
   inputID.value = id;
 };

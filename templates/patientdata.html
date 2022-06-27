@@ -35,40 +35,19 @@
             <i class="fa-solid fa-file-waveform"></i
             ><a href="/addscan">Add Scan</a>
           </li>
+          <li class="nav-item">
+            <i class="fa-solid fa-magnifying-glass"></i
+            ><a href="/search">Search</a>
+          </li>
           <li class="nav-item active">
-            <i class="fa-solid fa-magnifying-glass"></i><a href="#">Search</a>
+            <i class="fa-solid fa-magnifying-glass"></i
+            ><a href="#">Patient data</a>
           </li>
         </ul>
       </nav>
       <main class="main-content">
-        <form id="form" class="form" method="POST" action="/search">
-          <div class="content-header">
-            <h2>Search for patient by name</h2>
-            <div class="relative">
-              <input required id="input-name" name="input-name" type="text" />
-              <ul class="suggested-names"></ul>
-            </div>
-            <h2>Or by ID</h2>
-            <input
-              required
-              id="input-id"
-              name="input-id"
-              step="1"
-              type="number"
-            />
-          </div>
-          <div class="form-main"></div>
-          <div class="button-div show">
-            <span class="btn btn-span">Show</span>
-          </div>
-          <div class="name-row button-div hidden back">
-            <span class="btn btn-span">Back</span>
-            <button type="submit" class="btn btn-button">Continue</button>
-          </div>
-        </form>
+        <form id="form" class="form" method="POST" action="/patientdata"></form>
       </main>
     </div>
-
-    <script type="module" src="../static/scripts/searchPage.js"></script>
   </body>
 </html>

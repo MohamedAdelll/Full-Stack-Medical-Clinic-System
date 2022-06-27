@@ -36,7 +36,7 @@ mydb.commit()
 
 mycursor.execute('''
     CREATE TABLE IF NOT EXISTS Patients (
-        ID INT NOT NULL UNIQUE AUTO_INCREMENT,
+        ID INT NOT NULL UNIQUE,
         Name VARCHAR(255),
         Gender VARCHAR(45),
         Age INT,
@@ -51,7 +51,7 @@ mycursor.execute('''
         ID INT NOT NULL UNIQUE AUTO_INCREMENT,
         PID INT NOT NULL,
         SDate VARCHAR(255),
-        Image1 LONGBLOB,
+        Image1 LONGTEXT,
         Image2 BLOB,
         Image3 BLOB,
         Image4 BLOB,

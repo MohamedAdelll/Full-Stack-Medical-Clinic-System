@@ -9,7 +9,6 @@ import pathlib
 #variables
 global isLoggedIn
 isLoggedIn = False
-print(1)
 
 mydb = mysql.connector.connect(
 	host = 'localhost',
@@ -82,6 +81,7 @@ def home():
 def newPatient():
     genJSON()
     if request.method == 'POST':
+        pid = request.form['pID']
         fname = request.form['fname']
         minit = request.form['minit']
         lname = request.form['lname']
@@ -89,10 +89,11 @@ def newPatient():
         age = request.form['age']
         gender = request.form['gender']
         address = request.form['address']
-        data = (name, age, gender, address,)
-        mycursor.execute('INSERT INTO Patients (Name, Age, Gender, Address) VALUES (%s, %s, %s, %s)', data)
+        data = (pid, name, age, gender, address,)
+        mycursor.execute('INSERT INTO Patients (ID, Name, Age, Gender, Address) VALUES (%s, %s, %s, %s, %s)', data)
         mydb.commit()
         flash('Patient added successfully')
+        return redirect('/newpatient')
     return render_template('patient.html')
 
 @app.route('/exam', methods = ['POST', 'GET'])
@@ -118,7 +119,7 @@ def addExam():
         val = (id, str(date.today()), pulse, rirr, co, bps, bpd, rr, chest, ht1, ht2, ht3, abd, ll, oedema)
         mycursor.execute(sql, val)
         mydb.commit()
-
+        return redirect('/exam')
     return render_template('exam.html')
 
 @app.route('/addscan', methods = ['POST', 'GET'])
@@ -129,10 +130,11 @@ def newScan():
         pid = request.form['input-id']
         images = request.files.getlist('images')
         test = base64.b64encode(images[0].read())
-        data = (str(pid), str(date.today()), test)
+        data = (str(pid), str(date.today()), str(test))
         mycursor.execute('INSERT INTO Scans (PID, SDate, Image1) VALUES (%s, %s, %s)', data)
         mydb.commit()
         flash('Scan added successfully')
+        return redirect('/addscan')
     return render_template('scan.html')
 
 @app.route('/search', methods = ['POST', 'GET'])
@@ -145,7 +147,7 @@ def search():
         desc = mycursor.description
         column_names = [col[0] for col in desc]
         scans = [dict(zip(column_names, row)) for row in mycursor.fetchall()]
-        with open('%s/static/json_scans.json' % pathlib.Path(__file__).parent.resolve(), 'w') as outfile:
+        with open('json_scans.json', 'w') as outfile:
             json_string = json.dumps(scans)
             json.dump(json_string, outfile)
         
@@ -154,15 +156,15 @@ def search():
         desc = mycursor.description
         column_names = [col[0] for col in desc]
         exams = [dict(zip(column_names, row)) for row in mycursor.fetchall()]
-        with open('%s/static/json_exams.json' % pathlib.Path(__file__).parent.resolve(), 'w') as outfile:
+        with open('json_exams.json', 'w') as outfile:
             json_string = json.dumps(exams)
             json.dump(json_string, outfile)
-        return redirect(url_for(patientdata))
+        return redirect('/patientdata')
     return render_template('search.html')
 
 @app.route('/patientdata', methods=['POST', 'GET'])
 def patientdata():
-    return('patientdata.html')
+    return render_template('patientdata.html')
 
 if __name__=='__main__':
 	app.run(debug=True)
