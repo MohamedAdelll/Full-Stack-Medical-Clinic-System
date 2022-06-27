@@ -1,3 +1,5 @@
+import getPatients from "./getPatients.js";
+
 const main = document.querySelector(".form-main");
 const inputName = document.querySelector("#input-name");
 const inputID = document.querySelector("#input-id");
@@ -6,14 +8,8 @@ const spanBtn = document.querySelectorAll(".btn-span");
 const divShow = document.querySelector(".button-div.show");
 const divBack = document.querySelector(".button-div.back");
 
-async function getPatients() {
-  const patientDataP = await fetch("/static/json_patients.json");
-  const patientDataJson = await patientDataP.json();
-  return patientDataJson;
-}
-
 const data = JSON.parse(await getPatients());
-console.log(data)
+console.log(data);
 const patientsNamesL = data.map((patient) => patient.Name.toLowerCase());
 
 inputName.addEventListener("keyup", () => {
@@ -43,10 +39,9 @@ suggested.addEventListener("click", (e) => {
   inputName.value = e.target.textContent;
   suggested.innerHTML = "";
   currPatient = data.find(
-    (patient) =>patient.Name.toLowerCase() === inputName.value.toLowerCase()
-    );
-    console.log(currPatient)
-    const id = currPatient.ID;
+    (currPatient) => currPatient.Name === inputName.value
+  );
+  const id = currPatient.ID;
   inputID.value = id;
 });
 console.log(spanBtn);
@@ -78,7 +73,6 @@ spanBtn.forEach((btn) => {
       divBack.classList.remove("hidden");
       main.innerHTML = "";
       main.innerHTML = html;
-      console.log("elzeb");
     }
     if (btn.textContent === "Back") {
       inputID.value = "";
@@ -90,11 +84,9 @@ spanBtn.forEach((btn) => {
   });
 });
 
-inputID.addEventListener('keyup',()=>{
-  if (inputID.value.length!==1) return;
-  currPatient=data.find(patient=>
-    patient.ID===+inputID.value
-  )
-  console.log(currPatient)
-  inputName.value=capitalizeInitials(currPatient.Name)
-})
+inputID.addEventListener("keyup", () => {
+  if (inputID.value.length !== 6) return;
+  currPatient = data.find((patient) => patient.ID === +inputID.value);
+  console.log(currPatient);
+  inputName.value = capitalizeInitials(currPatient.Name);
+});
