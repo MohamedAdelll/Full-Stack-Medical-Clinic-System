@@ -1,3 +1,14 @@
+import {
+  handleInputID,
+  handleInputName,
+  handleSuggestions,
+  currPatient,
+} from "./search.js";
+
+const inputName = document.querySelector("#input-name");
+const inputID = document.querySelector("#input-id");
+const suggested = document.querySelector(".suggested-names");
+
 const input = document.querySelector("#file");
 const rightArr = document.querySelector(".fa-solidArrR");
 const leftArr = document.querySelector(".fa-solidArrL");
@@ -74,3 +85,7 @@ function handleDots(i) {
     }
   });
 }
+
+inputName.addEventListener("keyup", handleInputName);
+suggested.addEventListener("keyup", handleSuggestions);
+inputID.addEventListener("keyup", handleInputID);
