@@ -5,7 +5,7 @@ console.log(data);
 
 let patientID;
 const date = new Date();
-const currMonth = (date.getMonth() + 2 + "").padStart(2, 0);
+const currMonth = (date.getMonth() + 1 + "").padStart(2, 0);
 const currYear = (date.getFullYear() + "").slice(2);
 const hiddenSelect = document.querySelector("select.hidden option");
 const form = document.querySelector(".form");
