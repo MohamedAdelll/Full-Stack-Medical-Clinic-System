@@ -8,7 +8,9 @@ import itertools
 import pathlib 
 #variables
 global isLoggedIn
+global isSearched
 isLoggedIn = False
+isSearched = False
 
 mydb = mysql.connector.connect(
 	host = 'localhost',
@@ -115,7 +117,7 @@ def addExam():
         abd = request.form['abd']
         ll = request.form['ll']
         oedema = request.form['oedema']
-        sql = 'INSERT INTO Examination (PID, Date, Pulse, PulseType, CO, BPS, BPD, RR, Chest, HT1, HT2, HT3, ABD, LL, Oedema) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+        sql = 'INSERT INTO Examinations (PID, Date, Pulse, PulseType, CO, BPS, BPD, RR, Chest, HT1, HT2, HT3, ABD, LL, Oedema) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
         val = (id, str(date.today()), pulse, rirr, co, bps, bpd, rr, chest, ht1, ht2, ht3, abd, ll, oedema)
         mycursor.execute(sql, val)
         mydb.commit()
@@ -162,16 +164,19 @@ def newScan():
     return render_template('scan.html')
 
 @app.route('/search', methods = ['POST', 'GET'])
+@is_logged_in
 def search():
     genJSON()
+    global isSearched
     if request.method == 'POST':
         id = request.form['input-id']
+        print(id)
         sql = "SELECT * FROM Scans WHERE PID = '%s'" % id
         mycursor.execute(sql)
         desc = mycursor.description
         column_names = [col[0] for col in desc]
         scans = [dict(zip(column_names, row)) for row in mycursor.fetchall()]
-        with open('json_scans.json', 'w') as outfile:
+        with open('%s/static/json_scans.json' % pathlib.Path(__file__).parent.resolve(), 'w') as outfile:
             json_string = json.dumps(scans)
             json.dump(json_string, outfile)
         
@@ -180,14 +185,20 @@ def search():
         desc = mycursor.description
         column_names = [col[0] for col in desc]
         exams = [dict(zip(column_names, row)) for row in mycursor.fetchall()]
-        with open('json_exams.json', 'w') as outfile:
+        with open('%s/static/json_exams.json' % pathlib.Path(__file__).parent.resolve(), 'w') as outfile:
             json_string = json.dumps(exams)
             json.dump(json_string, outfile)
+        isSearched = True
         return redirect('/patientdata')
     return render_template('search.html')
 
 @app.route('/patientdata', methods=['POST', 'GET'])
+@is_logged_in
 def patientdata():
+    global isSearched
+    print(isSearched)
+    if isSearched == False:
+        return redirect('/search')
     return render_template('patientdata.html')
 
 if __name__=='__main__':

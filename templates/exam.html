@@ -75,14 +75,14 @@
               <div class="frame-row">
                 <input type="number" name="pulse" />
                 <span>/min</span>
-                <sl-radio-group label="Select an option" name="rirr">
-                  <sl-radio-button size="large" name="option" value="1" checked
-                    >R</sl-radio-button
+                <select name="rirr">
+                  <option name="option" value="1"
+                    >R</option>
                   >
-                  <sl-radio-button size="large" name="option" value="2"
-                    >IRR</sl-radio-button
+                  <option name="option" value="2"
+                    >IRR</option>
                   >
-                </sl-radio-group>
+                </select>
               </div>
               <label for="BP">BP</label>
               <div class="frame-row">
@@ -108,32 +108,30 @@
               <label class="label-ht" for="HT">Ht</label>
               <div class="flex-column">
                 <div class="frame-row">
-                  <sl-radio-group label="Select an option" name="ht1">
-                    <sl-radio-button
-                      size="large"
+                  <select name="ht1">
+                    <option
                       name="option"
                       value="1"
-                      checked
-                      >S1</sl-radio-button
+                      >S1</option>
                     >
-                    <sl-radio-button size="large" name="option" value="2"
-                      >S2</sl-radio-button
+                    <option name="option" value="2"
+                      >S2</option>
                     >
-                    <sl-radio-button size="large" name="option" value="3"
-                      >S3</sl-radio-button
+                    <option name="option" value="3"
+                      >S3</option>
                     >
-                    <sl-radio-button size="large" name="option" value="4"
-                      >S4</sl-radio-button
+                    <option name="option" value="4"
+                      >S4</option>
                     >
-                  </sl-radio-group>
-                  <sl-radio-group label="Select an option" name="ht2">
-                    <sl-radio-button size="large" name="option" value="1"
-                      >Sys. m</sl-radio-button
+                  </select>
+                  <select name="ht2">
+                    <option name="option" value="1"
+                      >Sys. m</option>
                     >
-                    <sl-radio-button size="large" name="option" value="2"
-                      >Dia. m</sl-radio-button
+                    <option name="option" value="2"
+                      >Dia. m</option>
                     >
-                  </sl-radio-group>
+                  </select>
                 </div>
                 <div class="frame-row">
                   <label for="others">Others</label>
@@ -145,14 +143,14 @@
               <label for="LL">LL</label>
               <div class="frame-row">
                 <label for="pulse">Pulse</label>
-                <sl-radio-group label="Select an option" name="ll">
-                  <sl-radio-button size="large" name="option" value="1" checked
-                    >YES</sl-radio-button
+                <select name="ll">
+                  <option name="option" value="1" checked
+                    >YES</option>
                   >
-                  <sl-radio-button size="large" name="option" value="2"
-                    >NO</sl-radio-button
+                  <option name="option" value="2"
+                    >NO</option>
                   >
-                </sl-radio-group>
+                </select>
               </div>
               <label for="oedema">Oedema</label>
               <select id="oedema" name="oedema">
