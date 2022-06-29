@@ -60,7 +60,7 @@ def login():
         if data is not None:
             isLoggedIn = True
             flash('Successfully logged in')
-            return redirect(url_for('home'))
+            return redirect(url_for('newPatient'))
         else:
             flash('Wrong username or Password')
             return render_template('login.html')
@@ -71,12 +71,12 @@ def login():
 def logout():
     global isLoggedIn
     isLoggedIn = False
-    return redirect(url_for('home'))
+    return redirect(url_for('login'))
 
 @app.route('/', methods = ['POST', 'GET'])
 @is_logged_in
 def home():
-        return redirect(url_for('newPatient'))
+        return redirect(url_for('login'))
 
 @app.route('/newpatient', methods = ['POST', 'GET'])
 @is_logged_in
@@ -94,7 +94,7 @@ def newPatient():
         data = (pid, name, age, gender, address,)
         mycursor.execute('INSERT INTO Patients (ID, Name, Age, Gender, Address) VALUES (%s, %s, %s, %s, %s)', data)
         mydb.commit()
-        flash('Patient added successfully')
+        flash('Patient added successfully!')
         return redirect('/newpatient')
     return render_template('patient.html')
 
@@ -121,6 +121,7 @@ def addExam():
         val = (id, str(date.today()), pulse, rirr, co, bps, bpd, rr, chest, ht1, ht2, ht3, abd, ll, oedema)
         mycursor.execute(sql, val)
         mydb.commit()
+        flash('Examination added successfully!')
         return redirect('/exam')
     return render_template('exam.html')
 
@@ -130,36 +131,37 @@ def newScan():
     genJSON()
     if request.method == 'POST':
         pid = request.form['input-id']
+        comments = request.form['comments']
         images = request.files.getlist('images')
         for i in range(len(images)):
             images[i] = base64.b64encode(images[i].read())
         if (len(images) == 1):
-            data = (str(pid), str(date.today()), str(images[0]))
-            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1) VALUES (%s, %s, %s)', data)
+            data = (comments, str(pid), str(date.today()), str(images[0]))
+            mycursor.execute('INSERT INTO Scans (Comments, PID, SDate, Image1) VALUES (%s, %s, %s, %s)', data)
         elif (len(images) == 2):
-            data = (str(pid), str(date.today()), str(images[0]), images[1])
-            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1, Image2) VALUES (%s, %s, %s, %s)', data)
+            data = (comments, str(pid), str(date.today()), str(images[0]), images[1])
+            mycursor.execute('INSERT INTO Scans (Comments, PID, SDate, Image1, Image2) VALUES (%s, %s, %s, %s, %s)', data)
         elif (len(images) == 3):
-            data = (str(pid), str(date.today()), str(images[0]), images[1], images[2])
-            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1, Image2, Image3) VALUES (%s, %s, %s, %s, %s)', data)
-        elif (len(images) == 3):
-            data = (str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3])
-            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1, Image2, Image3, Image4) VALUES (%s, %s, %s, %s, %s, %s)', data)
-        elif (len(images) == 3):
-            data = (str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3], images[4])
-            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1, Image2, Image3, Image4, Image5) VALUES (%s, %s, %s, %s, %s, %s, %s)', data)
-        elif (len(images) == 3):
-            data = (str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3], images[4], images[5])
-            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1, Image2, Image3, Image4, Image5, Image6) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', data)
-        elif (len(images) == 3):
-            data = (str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3], images[4], images[5], images[6])
-            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1, Image2, Image3, Image4, Image5, Image6, Image7) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)', data)
-        elif (len(images) == 3):
-            data = (str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3], images[4], images[5], images[6], images[7])
-            mycursor.execute('INSERT INTO Scans (PID, SDate, Image1, Image2, Image3, Image4, Image5, Image6, Image7, Image8) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', data)
+            data = (comments, str(pid), str(date.today()), str(images[0]), images[1], images[2])
+            mycursor.execute('INSERT INTO Scans (Comments, PID, SDate, Image1, Image2, Image3) VALUES (%s, %s, %s, %s, %s, %s)', data)
+        elif (len(images) == 4):
+            data = (comments, str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3])
+            mycursor.execute('INSERT INTO Scans (Comments, PID, SDate, Image1, Image2, Image3, Image4) VALUES (%s, %s, %s, %s, %s, %s, %s)', data)
+        elif (len(images) == 5):
+            data = (comments, str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3], images[4])
+            mycursor.execute('INSERT INTO Scans (Comments, PID, SDate, Image1, Image2, Image3, Image4, Image5) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', data)
+        elif (len(images) == 6):
+            data = (comments, str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3], images[4], images[5])
+            mycursor.execute('INSERT INTO Scans (Comments, PID, SDate, Image1, Image2, Image3, Image4, Image5, Image6) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)', data)
+        elif (len(images) == 7):
+            data = (comments, str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3], images[4], images[5], images[6])
+            mycursor.execute('INSERT INTO Scans (Comments, PID, SDate, Image1, Image2, Image3, Image4, Image5, Image6, Image7) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', data)
+        elif (len(images) == 8):
+            data = (comments, str(pid), str(date.today()), str(images[0]), images[1], images[2], images[3], images[4], images[5], images[6], images[7])
+            mycursor.execute('INSERT INTO Scans (Comments, PID, SDate, Image1, Image2, Image3, Image4, Image5, Image6, Image7, Image8) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', data)
              
         mydb.commit()
-        flash('Scan added successfully')
+        flash('Scan added successfully!')
         return redirect('/addscan')
     return render_template('scan.html')
 
@@ -170,7 +172,6 @@ def search():
     global isSearched
     if request.method == 'POST':
         id = request.form['input-id']
-        print(id)
         sql = "SELECT * FROM Scans WHERE PID = '%s'" % id
         mycursor.execute(sql)
         desc = mycursor.description
@@ -183,6 +184,7 @@ def search():
         sql = "SELECT * FROM Examinations WHERE PID = '%s'" % id
         mycursor.execute(sql)
         desc = mycursor.description
+
         column_names = [col[0] for col in desc]
         exams = [dict(zip(column_names, row)) for row in mycursor.fetchall()]
         with open('%s/static/json_exams.json' % pathlib.Path(__file__).parent.resolve(), 'w') as outfile:

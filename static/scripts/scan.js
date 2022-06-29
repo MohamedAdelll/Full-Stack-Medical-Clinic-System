@@ -5,6 +5,8 @@ import {
   currPatient,
 } from "./search.js";
 
+import { swipeLeft, swipeRight } from "./imageController.js";
+
 const inputName = document.querySelector("#input-name");
 const inputID = document.querySelector("#input-id");
 const suggested = document.querySelector(".suggested-names");
@@ -33,58 +35,28 @@ function handleImgs(e) {
   }
   files = [...files];
   files.forEach((_, index) => {
-    const i = document.createElement("i");
-    if (index === 0) i.classList.add("fa-solid", "fa-circle");
-    else i.classList.add("fa-regular", "fa-circle");
-    document.querySelector(".dot-container").appendChild(i);
+    let html;
+    if (index === 0)
+      html = `
+    <svg class="fa-circle active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256z"/></svg>
+    
+    `;
+    else
+      html = `    <svg class="fa-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256z"/></svg>
+    `;
+    document
+      .querySelector(".dot-container")
+      .insertAdjacentHTML("beforeend", html);
   });
 }
-
-let index = 0;
 
 rightArr.addEventListener("click", swipeRight);
 leftArr.addEventListener("click", swipeLeft);
-
-function swipeRight() {
-  const imgsArr = document.querySelectorAll(".img-mod");
-  if (imgsArr.length == 0 || imgsArr.length === 1) return;
-  index += -100;
-  if (index === imgsArr.length * -100) index = 0;
-  imgsArr.forEach((img, i) => {
-    img.style.transform = `translateY(${index}%)`;
-  });
-  handleDots(index / -100);
-}
 
 document.addEventListener("keydown", (e) => {
   if (e.code === "ArrowRight") swipeRight();
   if (e.code === "ArrowLeft") swipeLeft();
 });
-function swipeLeft() {
-  const imgsArr = document.querySelectorAll(".img-mod");
-  if (imgsArr.length === 0 || imgsArr.length === 1) return;
-  if (index === 0) index = imgsArr.length * -100;
-  index += 100;
-  imgsArr.forEach((img, i) => {
-    img.style.transform = `translateY(${index}%)`;
-  });
-  handleDots(index / -100);
-}
-
-function handleDots(i) {
-  const dotNo = i;
-  const dotsArr = document.querySelectorAll(".fa-circle");
-  dotsArr.forEach((dot, i) => {
-    dot.classList.remove("fa-solid");
-    dot.classList.add("fa-regular");
-  });
-  dotsArr.forEach((dot, i) => {
-    if (i === dotNo) {
-      dot.classList.add("fa-solid");
-      dot.classList.remove("fa-regular");
-    }
-  });
-}
 
 inputName.addEventListener("keyup", handleInputName);
 suggested.addEventListener("keyup", handleSuggestions);

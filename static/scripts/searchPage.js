@@ -14,7 +14,6 @@ const inputName = document.querySelector("#input-name");
 const inputID = document.querySelector("#input-id");
 const suggested = document.querySelector(".suggested-names");
 
-console.log("ay haga");
 spanBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
     console.log(btn.textContent);

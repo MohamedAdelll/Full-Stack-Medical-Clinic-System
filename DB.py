@@ -59,6 +59,7 @@ mycursor.execute('''
         Image6 LONGTEXT,
         Image7 LONGTEXT,
         Image8 LONGTEXT,
+        Comments TEXT(1200),
         PRIMARY KEY(ID),
         CONSTRAINT PID_SCAN
             FOREIGN KEY(PID)

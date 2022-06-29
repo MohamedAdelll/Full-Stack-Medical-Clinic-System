@@ -93,6 +93,12 @@ body {
   position: relative;
 }
 
+h4 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
 .login-box .user-box input {
   width: 100%;
   padding: 10px 0;
