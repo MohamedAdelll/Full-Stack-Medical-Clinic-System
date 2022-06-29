@@ -41,6 +41,7 @@ mycursor.execute('''
         Gender VARCHAR(45),
         Age INT,
         Address VARCHAR(255),
+        Tel VARCHAR(25),
         PRIMARY KEY(ID)
     )
 ''')

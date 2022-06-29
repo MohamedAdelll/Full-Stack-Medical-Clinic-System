@@ -87,12 +87,13 @@ def newPatient():
         fname = request.form['fname']
         minit = request.form['minit']
         lname = request.form['lname']
+        tel = request.form['phone']
         name = fname + ' ' + minit + ' ' + lname 
         age = request.form['age']
         gender = request.form['gender']
         address = request.form['address']
         data = (pid, name, age, gender, address,)
-        mycursor.execute('INSERT INTO Patients (ID, Name, Age, Gender, Address) VALUES (%s, %s, %s, %s, %s)', data)
+        mycursor.execute('INSERT INTO Patients (Tel, ID, Name, Age, Gender, Address) VALUES (%s, %s, %s, %s, %s, %s)', data)
         mydb.commit()
         flash('Patient added successfully!')
         return redirect('/newpatient')
