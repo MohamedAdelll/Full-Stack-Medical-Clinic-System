@@ -10,6 +10,11 @@
   <body>
     <div class="login-box">
       <h3 class="heading-tertiary">Welcome back!</h3>
+      <h4>
+        {% with messages = get_flashed_messages(with_categories=false) %} {% if
+        messages %} {% for m in messages %} {{ m }} {% endfor %} {% endif %} {%
+        endwith %}
+      </h4>
       <form autocomplete="off" method="POST" action="/login">
         <div class="user-box">
           <input
